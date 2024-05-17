@@ -1,5 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials
 from dotenv import load_dotenv
 import os
 
@@ -15,6 +16,7 @@ class CreatePlaylist:
     test_uri = ['spotify:track:7yyRTcZmCiyzzJlNzGC9Ol']
     spotify_api.add_tracks_to_playlist(my_playlist['id'], test_uri)
     """
+    
     def __init__(self):
         load_dotenv()
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
@@ -41,3 +43,20 @@ class CreatePlaylist:
         Takes the playlist_id and a list of track URIs as arguments (and optionally the position of a track)
         """
         self.sp.playlist_add_items(playlist_id=playlist_id, items=track_uris, position=position)
+
+    # Fetching Playlists from a User
+    def fetch_playlists_user(self, user):
+
+        """   
+        if sp_oauth.is_token_expired(token_info):
+            token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+        sp = spotipy.Spotify(auth=token_info['access_token'])
+        """
+        
+        username = str(user) #Take the username arg
+
+        # Fetch Playlist Data from Spotify API
+        playlists = self.sp.user_playlists(username, limit=5)
+
+        # Return Playlist Information
+        return playlists

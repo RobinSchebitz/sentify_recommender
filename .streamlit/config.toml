@@ -1,0 +1,8 @@
+[server]
+allowRunOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[client]
+showSidebarNavigation = false

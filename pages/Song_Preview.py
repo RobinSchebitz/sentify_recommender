@@ -5,7 +5,6 @@ import numpy as np
 import json
 import scipy as sp
 import time
-import random  # NEW
 
 def run():
     
@@ -64,31 +63,71 @@ def run():
         recommended_tracks = track_uri.iloc[track_indices].drop_duplicates(keep='first').iloc[1:4]
         return recommended_tracks
 
+    
+    if 'track_id' not in st.session_state:
+        st.session_state.playlist_id = " "
 
     #Get Track ID from session
     track_id = st.session_state.track_id
+
     #Build a Dataframe with Track Recommendations
     uris = track_recommendations(track_id)
     df_recommendations = pd.DataFrame(uris)
+
+    #Add Artist and Track Information
+    df_merged = df_recommendations.merge(df_spotify[['artist_name', 'track_name']], how='left', left_index=True, right_index=True)
+    df_merged = df_merged.rename(columns={'artist_name': 'Artist', 'track_name': 'Song'})
+    df_recommendations = df_merged
+
     #Building a Checkbox Column
     df_recommendations['select'] = True
     select = df_recommendations.pop('select')
     df_recommendations.insert(0, 'select', select)
 
+    #Building a Play Button Column
+    df_recommendations['play'] = '▶'
+
     # Interface for track recommendations
     if 'recommendations' not in st.session_state:
         st.session_state.recommendations = df_recommendations
     
-    col_title, col_logout = st.columns([6,1])
+    buffer, col_logo, buffer = st.columns([1,5,1])
+
+    with col_logo:
+        st.image('images/sentify_fade.png')
+
+    col_title, buffer = st.columns([6,1])
     
     with col_title:
-        st.title('Sentify Music Recommender')
-    
-    with col_logout:
-        st.title(" ")
-        if st.button("Logout"):
-            st.switch_page('pages/Login.py')
+        desired_row = df_spotify[df_spotify['track_uri'] == track_id]
 
+        if not desired_row.empty:
+            # Check if there's a matching row
+            artist_name = desired_row['artist_name'].values[0]
+            track_name = desired_row['track_name'].values[0]
+        else:
+            # Handle the case where no row matches the track_id
+            artist_name = None
+            track_name = None
+
+        st.title("Your favorite Song:")
+
+        table_html = f"""
+        <table style="border: none;">
+        <tr>
+            <th>Artist</th>
+            <th>Song</th>
+        </tr>
+        <tr>
+            <td>{artist_name}</td>
+            <td>{track_name}</td>
+        </tr>
+        </table>
+        """
+
+        st.write(table_html, unsafe_allow_html=True)
+        st.title("Sentify Recommendations:")
+    
     st.data_editor(
         df_recommendations,
         column_config={
@@ -96,12 +135,12 @@ def run():
                 "Add to playlist?",
                 help="Select your **favorite** recommendations",
                 default=True,
-            )
+            ), "track_uri": None
         },
     hide_index=True
     )
 
-    col1, col2, col3, space = st.columns([1,1,1,1])
+    col1, col2, col3 = st.columns([1,1,1])
 
     with col1:
         if st.button('Settings'):
@@ -116,17 +155,20 @@ def run():
             st.switch_page('pages/Create_Playlist.py')
 
     
+    col_bot, buffer = st.columns([3,2])
 
-    # Interface for playlist creation
-    playlist_name = st.text_input('Enter the name of your new playlist:')
+    with col_bot:
 
-    if st.button('Create Spotify Playlist'):
-        spotify_api = CreatePlaylist()
-        my_playlist = spotify_api.create_playlist(name=playlist_name, description="My new playlist created by Sentify!")
-        spotify_api.add_tracks_to_playlist(my_playlist['id'], uris)
-        st.toast("Exporting Recommendations", icon='⌛')
-        time.sleep(3)
-        st.toast("Successfully exported Sentify Recommendations!", icon='🎉')
+        # Interface for playlist creation
+        playlist_name = st.text_input('Enter the name of your new playlist:')
+
+        if st.button('Create Spotify Playlist'):
+            spotify_api = CreatePlaylist()
+            my_playlist = spotify_api.create_playlist(name=playlist_name, description="My new playlist created by Sentify!")
+            spotify_api.add_tracks_to_playlist(my_playlist['id'], uris)
+            st.toast("Exporting Recommendations", icon='⌛')
+            time.sleep(3)
+            st.toast("Successfully exported Sentify Recommendations!", icon='🎉')
 
 if __name__ == "__main__":
     run()

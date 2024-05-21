@@ -6,7 +6,15 @@ def run():
     spotify_api = CreatePlaylist()
     playlists = spotify_api.fetch_playlists_user(username)
     
-    st.title("Sentify Music Recommender")
+    col_title, col_logout = st.columns([6,1])
+    with col_title:
+        st.title("Sentify Music Recommender")
+        # Button to navigate to the Settings page (Page 3)
+    with col_logout:
+        st.title(" ")
+        if st.button("Logout"):
+            st.switch_page('pages/Login.py')
+
     st.title(' ')
     st.title('Welcome ' + username)
     st.title(' ')
@@ -15,7 +23,7 @@ def run():
     # Input field for songs
     #st.text_input("Enter Song Names", placeholder="Type song names here...")
 
-    col1, buff, col2 = st.columns([2,1,2])
+    col1, buff, col2 = st.columns([3,2,3])
 
     with col1:
         st.subheader('Choose a Playlist')
@@ -25,38 +33,20 @@ def run():
             playlist_dict[playlist['name']] = playlist['id']
         
         # Create a selectbox option for each playlist
-        selected_playlist_index = st.selectbox(username + "'s playlists", list(playlist_dict.keys()))
+        selected_playlist = st.selectbox(username + "'s playlists", list(playlist_dict.keys()))
 
-        """ # Get the name of the selected playlist
-        selected_playlist_name = playlists[selected_playlist_index]['name']
-
-        # Display the selected playlist name
-        st.write(f"You selected: {selected_playlist_name}") """
+        if col1.button("Playlist Recommendation"):
+            playlist_id = playlist_dict[selected_playlist]
+            st.session_state.playlist_id = playlist_id
+            st.switch_page('pages/Playlist_Preview.py')
 
     with col2:
         st.subheader('Or choose a Song')
-        user_input = st.text_input('Enter your favorite song:')   
-        
-        
+        track_id = st.text_input('Enter your favorite Song ID:', value='spotify:track:')
 
-    col3, buff, col4 = st.columns([2,1,2])
-    
-    with col3:
-        if col3.button("Show Playlist"):
-                st.switch_page('pages/Preview.py')
-
-    with col4:
-         if col4.button("Show Tracks"):
-            st.switch_page('pages/Preview.py')
-         
-
-    
-    
-    # Button to navigate to the Settings page (Page 3)
-    if st.button("Go to Preview"):
-        st.switch_page('pages/Preview.py')
-        
+        if col2.button("Tracks Recommendation"):
+            st.session_state.track_id = track_id
+            st.switch_page('pages/Song_Preview.py')  
                   
-
 if __name__ == "__main__":
     run()

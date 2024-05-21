@@ -13,10 +13,10 @@ def run():
     
     user_name = st.text_input('Username')
     st.session_state.user_name = user_name 
-    st.text_input('Password')
+    st.text_input('Password', type='password')
 
     if st.button('Login'):
-        st.switch_page('pages/Create_playlist.py')
+        st.switch_page('pages/Create_Playlist.py')
 
 if __name__ == "__main__":
     run()

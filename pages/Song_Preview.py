@@ -108,12 +108,8 @@ def run():
             st.switch_page('pages/Settings.py')
 
     with col2:
-        if st.button('Shuffle'):            
-            #st.session_state.recommendations = df_recommendations
-            print(st.session_state.recommendations)
-            st.session_state.recommendations = st.session_state.recommendations.sample(frac=1).reset_index(drop=True)
-            print(st.session_state.recommendations)
-                        
+        if st.button('Shuffle'):         
+            st.session_state.recommendations = st.session_state.recommendations.sample(frac=1).reset_index(drop=True)                        
 
     with col3:
         if st.button('Go Back'):

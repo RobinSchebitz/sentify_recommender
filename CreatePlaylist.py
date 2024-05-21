@@ -64,8 +64,15 @@ class CreatePlaylist:
         return playlists
     
     def fetch_tracks_from_playlist(self, playlist_id):
-        
-        #Fetch Tracks from playlist
-        track_list = self.sp.playlist_items(playlist_id=playlist_id, limit=50)
 
-        return track_list
+        track_uris = []
+
+        #Fetch Tracks from playlist
+        results = self.sp.playlist_items(playlist_id=playlist_id, limit=50)
+
+        # Loop through each item in the response
+        for item in results['items']:
+            track = item['track']
+            track_uris.append(track['uri'])
+
+        return track_uris

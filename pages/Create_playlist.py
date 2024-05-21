@@ -5,23 +5,27 @@ def run():
     username = st.session_state.user_name
     spotify_api = CreatePlaylist()
     playlists = spotify_api.fetch_playlists_user(username)
+
+    if 'playlist_id' not in st.session_state:
+        st.session_state.playlist_id = " "
+    if 'playlist_name' not in st.session_state:
+        st.session_state.playlist_name = " "
     
+
+    buffer, col_logo, buffer = st.columns([1,5,1])
+
+    with col_logo:
+        st.image('images/sentify_logo.png')
+
     col_title, col_logout = st.columns([6,1])
+
     with col_title:
-        st.title("Sentify Music Recommender")
-        # Button to navigate to the Settings page (Page 3)
+        st.title('Welcome ' + username + '!')
+
     with col_logout:
         st.title(" ")
         if st.button("Logout"):
             st.switch_page('pages/Login.py')
-
-    st.title(' ')
-    st.title('Welcome ' + username)
-    st.title(' ')
-    
-    
-    # Input field for songs
-    #st.text_input("Enter Song Names", placeholder="Type song names here...")
 
     col1, buff, col2 = st.columns([3,2,3])
 
@@ -37,6 +41,7 @@ def run():
 
         if col1.button("Playlist Recommendation"):
             playlist_id = playlist_dict[selected_playlist]
+            st.session_state.playlist_name = selected_playlist
             st.session_state.playlist_id = playlist_id
             st.switch_page('pages/Playlist_Preview.py')
 

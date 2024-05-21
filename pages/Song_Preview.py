@@ -5,6 +5,7 @@ import numpy as np
 import json
 import scipy as sp
 import time
+import random  # NEW
 
 def run():
     
@@ -76,7 +77,7 @@ def run():
 
     # Interface for track recommendations
     if 'recommendations' not in st.session_state:
-        st.session_state.recommendations = []
+        st.session_state.recommendations = df_recommendations
     
     col_title, col_logout = st.columns([6,1])
     
@@ -104,15 +105,21 @@ def run():
 
     with col1:
         if st.button('Settings'):
-            pass
+            st.switch_page('pages/Settings.py')
 
     with col2:
-        if st.button('Shuffle'):
-            pass
+        if st.button('Shuffle'):            
+            #st.session_state.recommendations = df_recommendations
+            print(st.session_state.recommendations)
+            st.session_state.recommendations = st.session_state.recommendations.sample(frac=1).reset_index(drop=True)
+            print(st.session_state.recommendations)
+                        
 
     with col3:
         if st.button('Go Back'):
-            pass
+            st.switch_page('pages/Create_Playlist.py')
+
+    
 
     # Interface for playlist creation
     playlist_name = st.text_input('Enter the name of your new playlist:')

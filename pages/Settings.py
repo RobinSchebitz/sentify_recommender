@@ -1,27 +1,26 @@
 import streamlit as st
 
 def run():
-
-    option = st.selectbox(
-        "Current Mood Selection",
-        ("Happy", "Sad", "Romantic", "Energetic", "Calm", "Melancholic", "Uplifting"))
-
-    st.write("You selected:", option)
-
-    on = st.toggle("Mood Switcher")
-
-    on = st.toggle("Genre Selection")
-
-    #Importing track id from previous session
-    track_id = st.session_state.track_id
+   
+    buff, col_logo, buff = st.columns([1,10,1])
     
-    col1, col2, col3, col4 = st.columns([1,1,1,1])
-    
-    with col4:
+    with col_logo:
+
+        st.image('images/sentify_fade.png')
+
+        on1 = st.toggle("Sentiment Switcher", help="Shows you recommendations from different sentiments instead")
+
+        on2 = st.toggle("Good Vibes Only", help="Keep only recommendations from Happy & Uplifting Sentiment")
+
+        options = st.multiselect("Sentiment Selection",
+        ("Happy 😊", "Sad 😢", "Romantic 💖", "Energetic ⚡", "Calm 🧘", "Melancholic 🤔", "Uplifting 🌟"),
+        help="Choose the sentiment you like")
+
         if st.button('Confirm'):
-            st.session_state.track_id = track_id
-            st.switch_page('pages/Song_Preview.py')
-
+            if st.session_state.song:
+                st.switch_page('pages/Song_preview.py')
+            else:
+                st.switch_page('pages/Playlist_preview.py')
 
 if __name__ == "__main__":
     run()

@@ -159,6 +159,7 @@ def run():
             if st.button('Create Spotify Playlist'):
                 spotify_api = CreatePlaylist()
                 my_playlist = spotify_api.create_playlist(name=playlist_name, description="My new playlist created by Sentify!")
+                uris = uris.squeeze()
                 spotify_api.add_tracks_to_playlist(my_playlist['id'], uris)
                 st.toast("Exporting Recommendations", icon='⌛')
                 time.sleep(3)
@@ -169,7 +170,14 @@ def run():
         with col_bot2:
 
             if st.button('Add to ' + st.session_state.playlist_name):
-                pass
+                spotify_api = CreatePlaylist()
+                uris = uris.squeeze()
+                spotify_api.add_tracks_to_playlist(playlist_id, uris)
+                st.toast("Exporting Recommendations", icon='⌛')
+                time.sleep(3)
+                st.toast("Successfully exported Sentify Recommendations!", icon='🎉')
+                time.sleep(3)
+                st.switch_page('pages/Create_playlist.py')
 
 
 if __name__ == "__main__":

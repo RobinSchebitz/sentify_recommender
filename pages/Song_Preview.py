@@ -152,7 +152,7 @@ def run():
 
         with col_bot:
 
-            if st.button('Create Spotify Playlist'):
+            if st.button(label='Create Spotify Playlist'):
                 spotify_api = CreatePlaylist()
                 my_playlist = spotify_api.create_playlist(name=playlist_name, description="My new playlist created by Sentify!")
                 spotify_api.add_tracks_to_playlist(my_playlist['id'], uris)

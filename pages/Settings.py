@@ -18,9 +18,9 @@ def run():
 
         if st.button('Confirm'):
             if st.session_state.song:
-                st.switch_page('pages/Song_preview.py')
+                st.switch_page('pages/Song_Preview.py')
             else:
-                st.switch_page('pages/Playlist_preview.py')
+                st.switch_page('pages/Playlist_Preview.py')
 
 if __name__ == "__main__":
     run()

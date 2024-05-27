@@ -38,7 +38,7 @@ def run():
                 playlist_id = playlist_dict[selected_playlist]
                 st.session_state.playlist_name = selected_playlist
                 st.session_state.playlist_id = playlist_id
-                st.switch_page('pages/Playlist_preview.py')
+                st.switch_page('pages/Playlist_Preview.py')
 
         with col2:
             st.subheader('Or choose a Song')
@@ -46,7 +46,7 @@ def run():
 
             if col2.button("Tracks Recommendation"):
                 st.session_state.track_id = track_id
-                st.switch_page('pages/Song_preview.py')  
+                st.switch_page('pages/Song_Preview.py')  
                   
 if __name__ == "__main__":
     run()

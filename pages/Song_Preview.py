@@ -8,36 +8,10 @@ import time
 
 def run():
     
-    # Load JSON data from file
-    with open('data/challenge_set.json', 'r') as file: # Replace with local dataset path
-        data = json.load(file)
-
-    # Initialize an empty list to collect all track data
-    all_tracks = []
-
-    # Loop through each playlist in the dataset
-    for playlist in data['playlists']:
-        for track in playlist['tracks']:
-            # Add playlist-level information to each track record
-            track_info = {
-                'playlist_name': playlist.get('name', 'Unknown'),
-                'playlist_pid': playlist['pid'],
-                'playlist_num_tracks': playlist['num_tracks'],
-                'track_pos': track['pos'],
-                'artist_name': track['artist_name'],
-                'track_uri': track['track_uri'],
-                'artist_uri': track['artist_uri'],
-                'track_name': track['track_name'],
-                'album_uri': track['album_uri'],
-                'duration_ms': track['duration_ms'],
-                'album_name': track['album_name']
-            }
-            all_tracks.append(track_info)
-
-    # Convert the list of track dictionaries to a DataFrame
-    df_spotify = pd.DataFrame(all_tracks)
-
+    df_spotify = pd.read_pickle('data/streamlit.pkl')
+    
     sim_matrix_test = sp.sparse.load_npz('models/sparse_matrix.npz')
+
     sim_matrix_df = pd.DataFrame.sparse.from_spmatrix(sim_matrix_test)
 
     # Build index with track uris
@@ -50,7 +24,7 @@ def run():
         #get the index of the track we put into the function
         idx = indices[track].iloc[0]
 
-        #calculate all cosine similarities to that track and store it in a list
+        #calculate all cstrosine similarities to that track and store it in a list
         sim_scores = list(enumerate(sim_matrix_df[idx]))
 
         #sort the list staring with the highest similarity

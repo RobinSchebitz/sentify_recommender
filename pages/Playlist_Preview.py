@@ -1,17 +1,16 @@
 import streamlit as st
 from CreatePlaylist import CreatePlaylist
 import pandas as pd
-import json
 import scipy as sp
 import time
 
 def run():
+    # Import the necessary data & model
+    df_spotify = pd.read_pickle('data/sentify.pkl')
 
-    df_spotify = pd.read_pickle('data/streamlit.pkl')
+    sim_matrix = sp.sparse.load_npz('models/sentify.npz')
 
-    sim_matrix_test = sp.sparse.load_npz('models/sparse_matrix.npz')
-
-    sim_matrix_df = pd.DataFrame.sparse.from_spmatrix(sim_matrix_test)
+    sim_matrix_df = pd.DataFrame.sparse.from_spmatrix(sim_matrix)
 
     # Build index with track uris
     track_uri = df_spotify['track_uri']

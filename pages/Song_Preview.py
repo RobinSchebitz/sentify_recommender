@@ -8,11 +8,12 @@ import time
 
 def run():
     
-    df_spotify = pd.read_pickle('data/streamlit.pkl')
+    # Import the necessary data & model
+    df_spotify = pd.read_pickle('data/sentify.pkl')
     
-    sim_matrix_test = sp.sparse.load_npz('models/sparse_matrix.npz')
+    sim_matrix = sp.sparse.load_npz('models/sentify.npz')
 
-    sim_matrix_df = pd.DataFrame.sparse.from_spmatrix(sim_matrix_test)
+    sim_matrix_df = pd.DataFrame.sparse.from_spmatrix(sim_matrix)
 
     # Build index with track uris
     track_uri = df_spotify['track_uri']

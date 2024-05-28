@@ -3,16 +3,27 @@ Here you find our jupyter notebook files for running a content based music recom
 
 The data used is a modified version of the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset).
 
+## Setup
+
+Run this code to create a new environment. ```requirements.txt``` will install the necessary packages.
+
+```
+pyenv local 3.11.3
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+
 # Getting this project to run
 There are two ways to do it: 
 
 ## Quickstart with pre-selected model features:
 1. Clone the repository.
 2. Install the required packages using ```pip install -r requirements.txt```.
-3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset) and store in in the data folder.
-It should automatically be named ```challenge_set.json```.
-4. 
-5. Create a .env file with your Spotify credentials obtained from [Spotify](https://developer.spotify.com). Assign your credentials to the following keys:
+3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset), unzip it and store ```challenge_set.json``` in the data folder.
+4. Create a .env file with your Spotify credentials obtained from [Spotify](https://developer.spotify.com). Assign your credentials to the following keys:
     - spotify_client_id=*Your Spotify client id here*
     - spotify_client_secret=*Your Spotify client secret here*
 6. Place the received ```sentify_data.zip``` file into the ```data``` folder.
@@ -23,8 +34,7 @@ It should automatically be named ```challenge_set.json```.
 ## Run project from scratch:
 1. Clone the repository.
 2. Install the required packages using ```pip install -r requirements.txt```.
-3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset) and store in in the data folder.
-It should automatically be named ```challenge_set.json```.
+3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset), unzip it and store ```challenge_set.json``` in the data folder.
 4. Send us a request to obtain the data from google drive.
 5. Create a .env file with your Spotify credentials obtained from [Spotify](https://developer.spotify.com) and [Genius]()Assign your credentials to the following keys:
     - spotify_client_id=*Your Spotify client id here*
@@ -40,16 +50,3 @@ It should automatically be named ```challenge_set.json```.
 * The settings window, including the buttons, the mood labels as well as the shuffle function are mock-ups and part of future work.
 * There is an unsolved bug in which certain track_uri can not be found from the ```track_recommendations()``` function and Sentify will crash accordingly.
 * If you want to see the results for a negative sentiment playlist of rock songs as in our presentation,  you can make a Spotify playlist with the following tracks: *spotify:track:59NqKTBxIYLZOqtgWna0J0* and *spotify:track3BVZmnvtniy5fGQdKaQrhD*.
-
-
-## Setup
-
-Run this code to create a new environment. ```requirements.txt``` will install the necessary packages.
-
-```
-pyenv local 3.11.3
-python -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-```

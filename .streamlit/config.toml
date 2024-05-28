@@ -6,3 +6,9 @@ gatherUsageStats = false
 
 [client]
 showSidebarNavigation = false
+
+[theme]
+base="dark"
+primaryColor="#1db954"
+backgroundColor="#191414"
+secondaryBackgroundColor="#1db954"

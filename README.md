@@ -22,7 +22,7 @@ There are two ways to do it:
 ## Quickstart with pre-selected model features:
 1. Clone the repository.
 2. Install the required packages using ```pip install -r requirements.txt```.
-3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset), unzip it and store ```challenge_set.json``` in the data folder.
+3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge) from the ressources section. Then unzip it and store ```challenge_set.json``` in the data folder.
 4. Create a .env file with your Spotify credentials obtained from [Spotify](https://developer.spotify.com). Assign your credentials to the following keys:
     - spotify_client_id=*Your Spotify client id here*
     - spotify_client_secret=*Your Spotify client secret here*
@@ -32,9 +32,7 @@ There are two ways to do it:
 9. Run ```streamlit run Sentify.py```.
 
 ## Run project from scratch:
-1. Clone the repository.
-2. Install the required packages using ```pip install -r requirements.txt```.
-3. Download the [challenge dataset from the Spotify Million Playlist Dataset Challenge](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#challenge-dataset), unzip it and store ```challenge_set.json``` in the data folder.
+1-3. Follow steps from above.
 4. Send us a request to obtain the data from google drive.
 5. Create a .env file with your Spotify credentials obtained from [Spotify](https://developer.spotify.com) and [Genius]()Assign your credentials to the following keys:
     - spotify_client_id=*Your Spotify client id here*

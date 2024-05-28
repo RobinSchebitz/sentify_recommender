@@ -5,7 +5,7 @@ scipy==1.13.0
 beautifulsoup4==4.12.3
 nltk==3.8.1
 python-dotenv==1.0.1
-spotipy==24.0
+spotipy==2.23.0
 chunkdot==0.4.2
 cloudpickle==2.2.1
 langdetect==1.0.9
